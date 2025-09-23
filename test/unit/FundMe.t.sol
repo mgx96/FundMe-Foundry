@@ -1,8 +1,8 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {Test, console} from  "../../lib/forge-std/src/Test.sol";
-import {FundMe} from  "../../src/FundMe.sol";
+import {Test, console} from "../../lib/forge-std/src/Test.sol";
+import {FundMe} from "../../src/FundMe.sol";
 import {DeployFundMe} from "../../script/DeployFundMe.s.sol";
 
 contract FundMeTest is Test {
@@ -12,24 +12,22 @@ contract FundMeTest is Test {
     address USER = makeAddr("user");
 
     function setUp() external {
-         DeployFundMe deployFundMe = new DeployFundMe();
-         fundMe = deployFundMe.run();
-         vm.deal(USER, STARTING_BALANCE);
+        DeployFundMe deployFundMe = new DeployFundMe();
+        fundMe = deployFundMe.run();
+        vm.deal(USER, STARTING_BALANCE);
     }
 
     function testMinimumDollarIsFive() public view {
-        assertEq(fundMe.MINIMUM_USD() , 5e18);
+        assertEq(fundMe.MINIMUM_USD(), 5e18);
     }
 
     function testGetVersion() public view {
         console.log("Price Feed Version:", fundMe.getVersion());
-        if(block.chainid == 11155111){
-        assertEq(fundMe.getVersion(), 4);
-        }
-        else if (block.chainid == 1) {
-         assertEq(fundMe.getVersion(), 6);   
-        }
-        else{
+        if (block.chainid == 11155111) {
+            assertEq(fundMe.getVersion(), 4);
+        } else if (block.chainid == 1) {
+            assertEq(fundMe.getVersion(), 6);
+        } else {
             console.log("Running on unknown netowrk, skipping version check");
         }
     }
@@ -86,7 +84,7 @@ contract FundMeTest is Test {
     function testWithdrawFromMultipleFunders() public funded {
         uint160 numberOfFunders = 10;
         uint160 startingFunderIndex = 1;
-        for(uint160 i = startingFunderIndex; i < numberOfFunders; i++) {
+        for (uint160 i = startingFunderIndex; i < numberOfFunders; i++) {
             hoax(address(i), SEND_VALUE);
             fundMe.fund{value: SEND_VALUE}();
         }

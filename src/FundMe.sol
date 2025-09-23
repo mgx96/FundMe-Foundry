@@ -7,7 +7,7 @@ import {PriceConverter} from "./PriceConverter.sol";
 error FundMe__NotOwner();
 
 contract FundMe {
-    mapping (address => uint256) private s_addressToAmountFunded;
+    mapping(address => uint256) private s_addressToAmountFunded;
     address[] private s_funders;
     address private immutable i_owner;
     uint256 public constant MINIMUM_USD = 5e18;
@@ -28,11 +28,11 @@ contract FundMe {
         s_addressToAmountFunded[msg.sender] += msg.value;
     }
 
-    function getPrice() view internal returns (uint256) {
+    function getPrice() internal view returns (uint256) {
         return PriceConverter.getPrice(s_priceFeed);
     }
 
-    function getConversionRate(uint256 ethAmount) view internal returns (uint256) {
+    function getConversionRate(uint256 ethAmount) internal view returns (uint256) {
         return PriceConverter.getConversionRate(ethAmount, s_priceFeed);
     }
 
@@ -40,18 +40,18 @@ contract FundMe {
         return s_priceFeed.version();
     }
 
-    modifier onlyOwner {
+    modifier onlyOwner() {
         if (msg.sender != i_owner) revert FundMe__NotOwner();
         _;
     }
 
-    function withdraw() payable public onlyOwner() {
+    function withdraw() public payable onlyOwner {
         for (uint256 funderIndex = 0; funderIndex < s_funders.length; funderIndex++) {
-            address funder =  s_funders[funderIndex];
+            address funder = s_funders[funderIndex];
             s_addressToAmountFunded[funder] = 0;
         }
         uint256 amount = address(this).balance;
-        (bool success, ) = payable(msg.sender).call{value: amount}("");
+        (bool success,) = payable(msg.sender).call{value: amount}("");
         require(success, "Transaction failed");
         delete s_funders;
     }

@@ -5,9 +5,7 @@ import {Script, console} from "../lib/forge-std/src/Script.sol";
 import {FundMe} from "../src/FundMe.sol";
 import {DevOpsTools} from "../lib/foundry-devops/src/DevOpsTools.sol";
 
-
 contract FundFundMe is Script {
-
     uint256 constant SEND_VALUE = 1 ether;
 
     function fundFundMe(address mostRecentDeployed) public {
@@ -24,10 +22,9 @@ contract FundFundMe is Script {
 }
 
 contract WithdrawFundMe is Script {
-
     uint256 constant SEND_VALUE = 0.01 ether;
 
-        function withdrawFundMe(address mostRecentDeployed) public {
+    function withdrawFundMe(address mostRecentDeployed) public {
         vm.startBroadcast();
         FundMe(payable(mostRecentDeployed)).withdraw();
         vm.stopBroadcast();
