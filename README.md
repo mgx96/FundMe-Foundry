@@ -29,7 +29,7 @@ A decentralized crowdfunding contract where users can fund in ETH, with contribu
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/mgx96/fundme-smart-contract.git
+   git clone https://github.com/mgx96/FundMe-Foundry.git
    cd fundme-smart-contract
 
 2. Install dependencies:
