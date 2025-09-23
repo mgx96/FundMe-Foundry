@@ -1,6 +1,6 @@
-![Solidity](https://img.shields.io/badge/Solidity-0.8.30-blue)  
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)  
-![Status](https://img.shields.io/badge/Status-Deployed-brightgreen)  
+![Solidity](https://img.shields.io/badge/Solidity-0.8.30-blue) 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) 
+![Status](https://img.shields.io/badge/Status-Deployed-brightgreen) 
 
 # FundMe Smart Contract  
 
